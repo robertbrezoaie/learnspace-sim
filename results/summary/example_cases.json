@@ -1,0 +1,126 @@
+{
+  "synthetic_data": true,
+  "source": "EXP-P cell C2, scenario S2, seed 1",
+  "cases": [
+    {
+      "case": "a",
+      "rule": "first single-factor difficulty decrease",
+      "found": true,
+      "cell": "C2",
+      "seed": 1,
+      "learner": 208,
+      "session": 2,
+      "task": 3,
+      "output": "difficulty",
+      "inputs": {
+        "e_prev": -0.08185444423158486,
+        "e_prev2": -0.032392285401940175,
+        "D_base": 2.1052631578947367,
+        "D": 1.9329380121440318,
+        "step_realized": -0.1041308606939888
+      },
+      "contributions": {
+        "e": -0.1041308606939888
+      },
+      "decision_value": -0.1041308606939888,
+      "threshold": 0.1,
+      "v2": {
+        "factors": [
+          "e"
+        ],
+        "shares": [
+          1
+        ],
+        "text": "The next tasks are a little easier because you have been less active lately."
+      },
+      "v1": {
+        "factor": "u",
+        "contributes": false,
+        "text": "The next tasks are a little easier because your mastery of the topic keeps growing.",
+        "note": "v1 uses the dominant reward contribution of the same decision point for every output"
+      }
+    },
+    {
+      "case": "b",
+      "rule": "first two-factor reward explanation",
+      "found": true,
+      "cell": "C2",
+      "seed": 1,
+      "learner": 456,
+      "session": 1,
+      "task": 10,
+      "output": "reward",
+      "inputs": {
+        "u": 0.5,
+        "b": 0.41398636089036833,
+        "e": 0,
+        "weights": {
+          "alpha": 0.4,
+          "beta": 0.4,
+          "gamma": 0.2
+        }
+      },
+      "contributions": {
+        "u": 0.2,
+        "b": 0.16559454435614734,
+        "e": 0
+      },
+      "decision_value": 0.36559454435614736,
+      "threshold": 0.1,
+      "v2": {
+        "factors": [
+          "u",
+          "b"
+        ],
+        "shares": [
+          0.5470541152418514,
+          0.45294588475814856
+        ],
+        "text": "You earned extra XP because your mastery of the topic keeps growing and you are working more fluently than usual."
+      },
+      "v1": {
+        "factor": "u",
+        "contributes": true,
+        "text": "You earned extra XP because your mastery of the topic keeps growing."
+      }
+    },
+    {
+      "case": "c",
+      "rule": "first difficulty decision where v1 names a non-contributing factor",
+      "found": true,
+      "cell": "C2",
+      "seed": 1,
+      "learner": 208,
+      "session": 2,
+      "task": 3,
+      "output": "difficulty",
+      "inputs": {
+        "e_prev": -0.08185444423158486,
+        "e_prev2": -0.032392285401940175,
+        "D_base": 2.1052631578947367,
+        "D": 1.9329380121440318,
+        "step_realized": -0.1041308606939888
+      },
+      "contributions": {
+        "e": -0.1041308606939888
+      },
+      "decision_value": -0.1041308606939888,
+      "threshold": 0.1,
+      "v2": {
+        "factors": [
+          "e"
+        ],
+        "shares": [
+          1
+        ],
+        "text": "The next tasks are a little easier because you have been less active lately."
+      },
+      "v1": {
+        "factor": "u",
+        "contributes": false,
+        "text": "The next tasks are a little easier because your mastery of the topic keeps growing.",
+        "note": "v1 uses the dominant reward contribution of the same decision point for every output"
+      }
+    }
+  ]
+}

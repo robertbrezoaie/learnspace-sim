@@ -1,0 +1,86 @@
+\begin{table}[H]
+\caption{Table 1. Simulation parameters (generated from configs/*.json). Learner-model values are stylised unless a source is given; data are synthetic.}
+\label{tab:table1_parameters}
+\centering
+\small
+\begin{tabular}{llllll}
+\toprule
+part & group & parameter & value & range (EXP-S) & source \\
+\midrule
+learner model & structure & N & 500 &  & design: learners per run (EXP-P) \\
+learner model & structure & S & 20 &  & design: weekly sessions, one school semester \\
+learner model & structure & T & 10 &  & design: planned tasks per session \\
+learner model & population & mu\_theta & 0 &  & Rasch convention (Embretson \& Reise, 2000) \\
+learner model & population & sigma\_theta & 1 & 0.7 to 1.3 & Rasch convention (Embretson \& Reise, 2000) \\
+learner model & population & rt\_baseline\_seconds & 40 &  & stylised; only relative response times matter for the algorithm \\
+learner model & population & rt\_baseline\_sd\_log & 0.3 &  & stylised \\
+learner model & population & E\_star\_mean & 0.667 & 0.55 to 0.75 & stylised; E* ~ Beta(c*mean, c*(1-mean)) \\
+learner model & population & E\_star\_concentration & 9 &  & stylised \\
+learner model & response & s\_D & 1 & 0.75 to 1.25 & design choice: logit per difficulty level, so D in [1,5] spans +/-2 logits; delta = s\_D*(D - 3) \\
+learner model & response & guess & 0.05 & 0.02 to 0.15 & BKT guess bound (Baker et al., 2008); low for open answers \\
+learner model & response & slip & 0.05 & 0.02 to 0.1 & BKT slip bound (Baker et al., 2008; Corbett \& Anderson, 1994) \\
+learner model & response & sigma\_rt & 0.4 & 0.3 to 0.6 & lognormal response-time model (van der Linden, 2006); value stylised \\
+learner model & response & lambda\_d & 0.25 & 0.1 to 0.4 & lognormal response-time model (van der Linden, 2006): harder relative to ability -> slower; value stylised \\
+learner model & response & dk0 & 0.02 &  & stylised; scaled by dk\_scale \\
+learner model & response & dk1 & 0.1 &  & stylised; scaled by dk\_scale \\
+learner model & response & dk2 & 0.1 &  & stylised; scaled by dk\_scale \\
+learner model & response & dk\_scale & 1 & 0.5 to 1.5 & stylised; multiplies dk0, dk1 and dk2 \\
+learner model & response & dk\_max & 0.6 &  & stylised; upper clip of the 'don't know' probability \\
+learner model & response & dk\_rt\_factor & 0.5 &  & stylised; response time of a 'don't know' answer relative to a normal attempt \\
+learner model & learning & l\_p & 0.006 & 0.003 to 0.012 & stylised; ability gain per attempted task; checked in EXP-CAL \\
+learner model & learning & l\_r & 0.015 & 0.005 to 0.03 & stylised; extra gain after a correct retry; checked in EXP-CAL \\
+learner model & engagement & rho & 0.05 & 0.02 to 0.1 & stylised; per-task reversion to trait engagement \\
+learner model & engagement & rho\_s & 0.3 & 0.1 to 0.5 & stylised; per-week reversion to trait engagement \\
+learner model & engagement & phi\_flow & 0.02 & 0.01 to 0.04 & direction from affect dynamics (D'Mello \& Graesser, 2012; Baker et al., 2010); magnitude stylised \\
+learner model & engagement & phi\_bore & 0.015 & 0.005 to 0.03 & direction from affect dynamics (Baker et al., 2010); magnitude stylised \\
+learner model & engagement & phi\_frus & 0.03 & 0.015 to 0.06 & direction from affect dynamics (D'Mello \& Graesser, 2012); magnitude stylised \\
+learner model & engagement & band\_lo & 0.55 &  & target challenge band; also used by the TIB metric (never shifted for the metric) \\
+learner model & engagement & band\_hi & 0.85 &  & upper bound near the 85\% rule (Wilson et al., 2019) \\
+learner model & engagement & band\_shift & 0 & -0.05 to 0.05 & sensitivity only: shifts the learner's engagement band, not the TIB metric \\
+learner model & engagement & p\_bore & 0.9 &  & stylised; 'too easy' threshold \\
+learner model & engagement & E\_q & 0.35 &  & stylised; engagement level below which quitting becomes possible \\
+learner model & engagement & q\_max & 0.25 & 0.1 to 0.4 & stylised; maximum quit probability per task \\
+learner model & attendance & a0 & 0.6 &  & stylised; attend probability = clip(a0 + a1*E, 0, attend\_max) \\
+learner model & attendance & a1 & 0.5 &  & stylised \\
+learner model & attendance & attend\_max & 0.98 &  & stylised \\
+learner model & attendance & absences\_to\_churn & 3 &  & stylised; consecutive absences after which the learner never returns \\
+learner model & grader & grader\_error & 0 & 0 to 0.1 & LLM grader disagreement; Report 5 H1 targets kappa >= 0.60 \\
+learner model & feedback & gain\_scale & 1 & 0.5 to 1.5 & multiplies the scenario gains (configs/scenarios.json); anchor: feedback effect d ~ 0.48 (Wisniewski et al., 2020) ~ 0.87 logits (Chinn, 2000) \\
+learner model & feedback & gain\_clip\_low & -0.5 &  & stylised \\
+learner model & feedback & gain\_clip\_high & 1.5 &  & stylised \\
+algorithm & signals & N\_u & 10 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & signals & N\_b & 5 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & signals & B\_min & 5 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & signals & rt\_sd\_floor & 0.05 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & signals & H\_s & 5 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & signals & H\_l & 30 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & signals & E\_min & 10 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & signals & e\_denominator\_floor & 0.1 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & signals.activity\_values & attempted & 1.0 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & signals.activity\_values & dont\_know & 0.5 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & signals.activity\_values & quit\_slot & 0.0 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & signals.activity\_values & absent\_slot & 0.0 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & reward & alpha & 0.4 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & reward & beta & 0.4 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & reward & gamma & 0.2 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & reward & lambda\_r & 0.5 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & reward & m\_min & 0.75 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & reward & m\_max & 1.5 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & reward & eps\_r & 0.1 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & gamification & baseXP & 10 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & gamification & difficultyMultiplier & 2.0 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & difficulty & D\_min & 1 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & difficulty & D\_max & 5 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & difficulty & eps\_D & 0.1 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & difficulty.curriculum & start & 2 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & difficulty.curriculum & end & 4 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & explanation & delta\_tie & 0.2 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & bandit & arms & plain, hint, example &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & bandit & random\_share & 0.5 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & bandit & prior & Beta(1, 1) &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & bandit & ts\_mode & sample &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & bandit & draws & 5000 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+algorithm & bandit.ctx & u\_threshold & 0.0 &  & design parameter of the algorithm (SIMULATION\_SPEC.md section 6.9) \\
+\bottomrule
+\end{tabular}
+\end{table}

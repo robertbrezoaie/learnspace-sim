@@ -35,10 +35,25 @@ npm run all        # runs all experiments, then all analysis scripts
 | Output | Produced by |
 |---|---|
 | `figures/` | `analysis/fig_*.py` |
-| `results/summary/paper_numbers.json` | `analysis/numbers.py` |
+| `results/summary/paper_numbers.json` | `analysis/paper_numbers.py` |
 | `results/summary/RESULTS.md` | `analysis/make_all.py` |
 
-*(A table mapping each figure to its command is added at milestone M3.)*
+| Figure / table | Content | Data from | Script |
+|---|---|---|---|
+| `figures/fig_a_x1_rules` | X1: v1 vs v2 vs random explanation rules (RQ1) | `npm run sim -- --exp explain` | `analysis/fig_a.py` |
+| `figures/fig_b_x2_stability` | X2: stability under input noise, two-factor rate (RQ1) | `--exp explain` | `analysis/fig_b.py` |
+| `figures/fig_c_x3_weights` | X3: reward weight sweep (appendix) | `--exp explain` | `analysis/fig_c.py` |
+| `figures/fig_d_regret` | REG_fixed curves in S1 and S2 (RQ2) | `--exp pipeline` | `analysis/fig_d.py` |
+| `figures/fig_e_field` | Field replica: ID90 and FID90 vs N (RQ2) | `--exp field` | `analysis/fig_e.py` |
+| `figures/fig_f_pipeline` | Pipeline view C1–C5 in S2 (RQ3) | `--exp pipeline` | `analysis/fig_f.py` |
+| `figures/fig_g_tornado` | Sensitivity tornado plots (appendix) | `--exp sensitivity` | `analysis/fig_g.py` |
+| `results/summary/table1_parameters.*` | Parameter table from the configs | configs | `analysis/tables.py` |
+| `results/summary/table2a_pipeline.*`, `table2b_bandit.*` | Main results with 95% CIs | `--exp pipeline` | `analysis/tables.py` |
+| `results/summary/table3_robustness.*` | K1–K4 across sensitivity settings | `--exp sensitivity` | `analysis/tables.py` |
+| `results/summary/example_cases.json` | Three real explanation cases (X5) | `--exp explain` | `src/experiments/audit_lib.ts` |
+| `results/summary/calibration.json` | Field-tier calibration and plausibility checks | `--exp cal` | `src/experiments/cal.ts` |
+
+`analysis/make_all.py --quick` analyses the development runs in `results/quick/` instead; their outputs are never used for the paper.
 
 ## Citation
 

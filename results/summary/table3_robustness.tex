@@ -1,0 +1,16 @@
+\begin{table}[H]
+\caption{Table 3. Robustness of the pre-registered expected results (synthetic learners). EXP-S: one-at-a-time settings (default plus each ranged learner parameter at its low and high value; N = 300, 10 seeds; explanation metrics on 3 seeds). A result holds when the seed-paired mean difference has the predicted sign and its 95\% t-interval excludes 0.}
+\label{tab:table3_robustness}
+\centering
+\small
+\begin{tabular}{lllll}
+\toprule
+expected result & statement & holds in main run & holds in EXP-S settings & settings where it does not hold \\
+\midrule
+K1 & On reward decisions, DN is higher for v2 than for v1. & yes & 39 of 39 & none \\
+K2 & At sigma\_n = 0.10, ST\_exact on reward decisions is higher with delta\_tie = 0.2 than with delta\_tie = 0. & no & 0 of 39 & default, sigma\_theta=low, sigma\_theta=high, E\_star\_mean=low, E\_star\_mean=high, s\_D=low, s\_D=high, guess=low, guess=high, slip=low, slip=high, sigma\_rt=low, sigma\_rt=high, lambda\_d=low, lambda\_d=high, dk\_scale=low, dk\_scale=high, l\_p=low, l\_p=high, l\_r=low, l\_r=high, rho=low, rho=high, rho\_s=low, rho\_s=high, phi\_flow=low, phi\_flow=high, phi\_bore=low, phi\_bore=high, phi\_frus=low, phi\_frus=high, band\_shift=low, band\_shift=high, q\_max=low, q\_max=high, grader\_error=low, grader\_error=high, gain\_scale=low, gain\_scale=high \\
+K3 & In S1 and S2, the final REG\_fixed of TS\_DEPLOYED is lower than that of RANDOM. & yes & 39 of 39 & none \\
+K4 & RTS is higher in C4 than in C3. & yes & 39 of 39 & none \\
+\bottomrule
+\end{tabular}
+\end{table}

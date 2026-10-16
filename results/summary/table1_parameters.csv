@@ -1,0 +1,75 @@
+part,group,parameter,value,range (EXP-S),source
+learner model,structure,N,500,,design: learners per run (EXP-P)
+learner model,structure,S,20,,"design: weekly sessions, one school semester"
+learner model,structure,T,10,,design: planned tasks per session
+learner model,population,mu_theta,0,,"Rasch convention (Embretson & Reise, 2000)"
+learner model,population,sigma_theta,1,0.7 to 1.3,"Rasch convention (Embretson & Reise, 2000)"
+learner model,population,rt_baseline_seconds,40,,stylised; only relative response times matter for the algorithm
+learner model,population,rt_baseline_sd_log,0.3,,stylised
+learner model,population,E_star_mean,0.667,0.55 to 0.75,"stylised; E* ~ Beta(c*mean, c*(1-mean))"
+learner model,population,E_star_concentration,9,,stylised
+learner model,response,s_D,1,0.75 to 1.25,"design choice: logit per difficulty level, so D in [1,5] spans +/-2 logits; delta = s_D*(D - 3)"
+learner model,response,guess,0.05,0.02 to 0.15,"BKT guess bound (Baker et al., 2008); low for open answers"
+learner model,response,slip,0.05,0.02 to 0.1,"BKT slip bound (Baker et al., 2008; Corbett & Anderson, 1994)"
+learner model,response,sigma_rt,0.4,0.3 to 0.6,"lognormal response-time model (van der Linden, 2006); value stylised"
+learner model,response,lambda_d,0.25,0.1 to 0.4,"lognormal response-time model (van der Linden, 2006): harder relative to ability -> slower; value stylised"
+learner model,response,dk0,0.02,,stylised; scaled by dk_scale
+learner model,response,dk1,0.1,,stylised; scaled by dk_scale
+learner model,response,dk2,0.1,,stylised; scaled by dk_scale
+learner model,response,dk_scale,1,0.5 to 1.5,"stylised; multiplies dk0, dk1 and dk2"
+learner model,response,dk_max,0.6,,stylised; upper clip of the 'don't know' probability
+learner model,response,dk_rt_factor,0.5,,stylised; response time of a 'don't know' answer relative to a normal attempt
+learner model,learning,l_p,0.006,0.003 to 0.012,stylised; ability gain per attempted task; checked in EXP-CAL
+learner model,learning,l_r,0.015,0.005 to 0.03,stylised; extra gain after a correct retry; checked in EXP-CAL
+learner model,engagement,rho,0.05,0.02 to 0.1,stylised; per-task reversion to trait engagement
+learner model,engagement,rho_s,0.3,0.1 to 0.5,stylised; per-week reversion to trait engagement
+learner model,engagement,phi_flow,0.02,0.01 to 0.04,"direction from affect dynamics (D'Mello & Graesser, 2012; Baker et al., 2010); magnitude stylised"
+learner model,engagement,phi_bore,0.015,0.005 to 0.03,"direction from affect dynamics (Baker et al., 2010); magnitude stylised"
+learner model,engagement,phi_frus,0.03,0.015 to 0.06,"direction from affect dynamics (D'Mello & Graesser, 2012); magnitude stylised"
+learner model,engagement,band_lo,0.55,,target challenge band; also used by the TIB metric (never shifted for the metric)
+learner model,engagement,band_hi,0.85,,"upper bound near the 85% rule (Wilson et al., 2019)"
+learner model,engagement,band_shift,0,-0.05 to 0.05,"sensitivity only: shifts the learner's engagement band, not the TIB metric"
+learner model,engagement,p_bore,0.9,,stylised; 'too easy' threshold
+learner model,engagement,E_q,0.35,,stylised; engagement level below which quitting becomes possible
+learner model,engagement,q_max,0.25,0.1 to 0.4,stylised; maximum quit probability per task
+learner model,attendance,a0,0.6,,"stylised; attend probability = clip(a0 + a1*E, 0, attend_max)"
+learner model,attendance,a1,0.5,,stylised
+learner model,attendance,attend_max,0.98,,stylised
+learner model,attendance,absences_to_churn,3,,stylised; consecutive absences after which the learner never returns
+learner model,grader,grader_error,0,0 to 0.1,LLM grader disagreement; Report 5 H1 targets kappa >= 0.60
+learner model,feedback,gain_scale,1,0.5 to 1.5,"multiplies the scenario gains (configs/scenarios.json); anchor: feedback effect d ~ 0.48 (Wisniewski et al., 2020) ~ 0.87 logits (Chinn, 2000)"
+learner model,feedback,gain_clip_low,-0.5,,stylised
+learner model,feedback,gain_clip_high,1.5,,stylised
+algorithm,signals,N_u,10,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,signals,N_b,5,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,signals,B_min,5,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,signals,rt_sd_floor,0.05,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,signals,H_s,5,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,signals,H_l,30,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,signals,E_min,10,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,signals,e_denominator_floor,0.1,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,signals.activity_values,attempted,1.0,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,signals.activity_values,dont_know,0.5,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,signals.activity_values,quit_slot,0.0,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,signals.activity_values,absent_slot,0.0,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,reward,alpha,0.4,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,reward,beta,0.4,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,reward,gamma,0.2,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,reward,lambda_r,0.5,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,reward,m_min,0.75,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,reward,m_max,1.5,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,reward,eps_r,0.1,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,gamification,baseXP,10,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,gamification,difficultyMultiplier,2.0,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,difficulty,D_min,1,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,difficulty,D_max,5,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,difficulty,eps_D,0.1,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,difficulty.curriculum,start,2,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,difficulty.curriculum,end,4,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,explanation,delta_tie,0.2,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,bandit,arms,"plain, hint, example",,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,bandit,random_share,0.5,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,bandit,prior,"Beta(1, 1)",,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,bandit,ts_mode,sample,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,bandit,draws,5000,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
+algorithm,bandit.ctx,u_threshold,0.0,,design parameter of the algorithm (SIMULATION_SPEC.md section 6.9)
