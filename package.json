@@ -11,7 +11,8 @@
     "test": "tsc --noEmit && vitest run",
     "sim": "tsx src/cli.ts",
     "sim:all": "tsx src/cli.ts --exp all",
-    "all": "npm run sim:all && python3 analysis/make_all.py"
+    "all": "npm run sim:all && npm run analysis",
+    "analysis": "if [ -x .venv/bin/python ]; then .venv/bin/python analysis/make_all.py; else python3 analysis/make_all.py; fi"
   },
   "devDependencies": {
     "@types/node": "20.17.6",

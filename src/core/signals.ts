@@ -23,8 +23,10 @@ export class SignalTracker {
   private slots = 0;
   private readonly rateShort: number;
   private readonly rateLong: number;
+  private readonly cfg: SignalConfig;
 
-  constructor(private readonly cfg: SignalConfig) {
+  constructor(cfg: SignalConfig) {
+    this.cfg = cfg;
     this.rateShort = ewmaRate(cfg.H_s);
     this.rateLong = ewmaRate(cfg.H_l);
   }

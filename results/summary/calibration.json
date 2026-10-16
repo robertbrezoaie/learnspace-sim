@@ -1,0 +1,78 @@
+{
+  "synthetic_data": true,
+  "note": "Synthetic learners. Tier logits are difficulty values delta on the learner logit scale (Report 5 question-bank design targets).",
+  "field_tiers": {
+    "warmup": {
+      "target": 0.9,
+      "reachable": false,
+      "aimed": 0.8930954479585967,
+      "delta": -6.920944008306833,
+      "achieved": 0.8930954479586122,
+      "max_reachable": 0.8940954479585967
+    },
+    "easy": {
+      "target": 0.65,
+      "reachable": true,
+      "aimed": 0.65,
+      "delta": -1.1876502029772382,
+      "achieved": 0.6500000000009131,
+      "max_reachable": 0.8940954479585967
+    },
+    "hard": {
+      "target": 0.3,
+      "reachable": true,
+      "aimed": 0.3,
+      "delta": 0.9074959068384487,
+      "achieved": 0.29999999999894683,
+      "max_reachable": 0.8940954479585967
+    }
+  },
+  "plausibility": {
+    "median_learner_success_per_session": {
+      "target": [
+        0.55,
+        0.8
+      ],
+      "min": 0.6,
+      "max": 0.7,
+      "pass": true
+    },
+    "churn_by_last_session": {
+      "target": [
+        0.02,
+        0.35
+      ],
+      "value": 0.0235,
+      "pass": true
+    },
+    "dont_know_rate": {
+      "target": [
+        0.03,
+        0.15
+      ],
+      "value": 0.08647544111038573,
+      "pass": true
+    },
+    "field_replica_wrong_first_answers_share": {
+      "target": 0.45,
+      "value": 0.449686724696186,
+      "pass": null,
+      "note": "approximate target (\"about\"); reported, not enforced"
+    },
+    "field_replica_mistakes_per_learner": {
+      "target": 5.4,
+      "value": 5.347,
+      "pass": null,
+      "note": "approximate target (\"about\"); reported, not enforced"
+    }
+  },
+  "all_enforced_targets_met": true,
+  "static_run": {
+    "difficulty": "STATIC",
+    "policy": "PLAIN",
+    "scenario": "S2",
+    "N": 2000,
+    "seed": 1,
+    "final_churn": 0.0235
+  }
+}

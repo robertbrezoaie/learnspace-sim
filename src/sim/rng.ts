@@ -37,8 +37,10 @@ export class SimRng implements Rng {
   private s1: number;
   private s2: number;
   private s3: number;
+  readonly name: string;
 
-  constructor(readonly name: string) {
+  constructor(name: string) {
+    this.name = name;
     const sm = splitmix32(fnv1a32(name));
     this.s0 = sm();
     this.s1 = sm();
