@@ -81,13 +81,14 @@ export function auditRecords(job: Omit<AuditJob, 'files'>, recs: TaskRecord[]): 
     x3 = auditX3(cell, rows, algo, job.x3.step, job.x3.ties, job.x3.noiseSd, job.x3.draws, stream(1, `xnoise3:${cell}`));
   }
   const x4 = auditX4(cell, recs);
+  const firstSeed = recs.reduce((m, r) => Math.min(m, r.seed), Infinity); // X5 uses the first seed (seed 1)
   return {
     x1,
     x2,
     x3,
     x4: x4.summary,
     x4hist: x4.hist,
-    x5: job.x5 ? exampleCases(recs.filter((r) => r.seed === Math.min(...recs.map((q) => q.seed))), algo) : null,
+    x5: job.x5 ? exampleCases(recs.filter((r) => r.seed === firstSeed), algo) : null,
     counts: {
       rows: recs.length,
       reward: allReward.length,
