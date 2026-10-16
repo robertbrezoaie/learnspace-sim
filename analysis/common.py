@@ -191,3 +191,40 @@ def fmt_ci(d: dict, digits: int = 3) -> str:
     if d.get("ci_low") is None:
         return f"{d['mean']:.{digits}f}"
     return f"{d['mean']:.{digits}f} [{d['ci_low']:.{digits}f}, {d['ci_high']:.{digits}f}]"
+
+
+# ---------- activity matrix (Fig H) ----------
+
+# slot states, in display order
+SLOT_STATES = [
+    ("correct", "correct first attempt", OI["blue"]),
+    ("recovered", "wrong, corrected after feedback", OI["sky"]),
+    ("failed", "wrong, retry also wrong", OI["orange"]),
+    ("dont_know", "\"don't know\" (then feedback and retry)", OI["yellow"]),
+    ("quit", "planned, not done (quit the session)", OI["vermillion"]),
+    ("absent", "absent that week", "#DDDDDD"),
+    ("churned", "churned (never returns)", "#555555"),
+]
+
+
+def activity_matrix(cell: str, scenario: str, seed: int, S: int = 20, T: int = 10) -> np.ndarray:
+    """learners x (S*T) matrix of slot-state indices (into SLOT_STATES), from one EXP-P task log."""
+    idx = {k: i for i, (k, _, _) in enumerate(SLOT_STATES)}
+    t = pd.read_csv(RAW / "pipeline" / f"tasks_{cell}_{scenario}_s{seed}.csv.gz",
+                    usecols=["learner", "session", "task", "firstCorrect_obs", "dontKnow", "retryCorrect_obs", "quit"])
+    lr = read("pipeline/learners.csv.gz")
+    lr = lr[(lr.cell == cell) & (lr.scenario == scenario) & (lr.seed == seed)].sort_values("learner")
+    n = int(lr.learner.max()) + 1
+    m = np.full((n, S * T), idx["absent"], dtype=np.int8)
+    state = np.where(t.firstCorrect_obs == 1, idx["correct"],
+             np.where(t.dontKnow == 1, idx["dont_know"],
+             np.where(t.retryCorrect_obs == 1, idx["recovered"], idx["failed"])))
+    col = (t.session.to_numpy() - 1) * T + (t.task.to_numpy() - 1)
+    m[t.learner.to_numpy(), col] = state
+    q = t[t.quit == 1]
+    for learner, session, task in zip(q.learner.astype(int), q.session.astype(int), q.task.astype(int)):
+        m[learner, (session - 1) * T + task:session * T] = idx["quit"]  # remaining planned slots of a quit session
+    c = lr[lr.churned == 1]
+    for learner, churn_session in zip(c.learner.astype(int), c.churn_session.astype(int)):
+        m[learner, (churn_session - 1) * T:] = idx["churned"]  # from the churn week on
+    return m

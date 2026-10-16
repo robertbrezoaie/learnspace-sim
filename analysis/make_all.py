@@ -10,7 +10,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-import fig_a, fig_b, fig_c, fig_d, fig_e, fig_f, fig_g  # noqa: E402,E401
+import fig_a, fig_b, fig_c, fig_d, fig_e, fig_f, fig_g, fig_h  # noqa: E402,E401
 import paper_numbers  # noqa: E402
 import tables  # noqa: E402
 from common import SUMMARY, exists  # noqa: E402
@@ -24,7 +24,7 @@ def main() -> None:
     figs = []
     plan = [(fig_a, "explain/x1_rules.csv.gz"), (fig_b, "explain/x2_stability.csv.gz"), (fig_c, "explain/x3_weights.csv.gz"),
             (fig_d, "pipeline/bandit_curves.csv.gz"), (fig_e, "field/runs.csv.gz"), (fig_f, "pipeline/learners.csv.gz"),
-            (fig_g, "sensitivity/runs.csv.gz")]
+            (fig_g, "sensitivity/runs.csv.gz"), (fig_h, "pipeline/tasks_B-TS_S2_s1.csv.gz")]
     for mod, need in plan:
         if exists(need):
             f = mod.make(num, extra)

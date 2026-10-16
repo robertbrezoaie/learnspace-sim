@@ -11,6 +11,8 @@ import numpy as np
 import pandas as pd
 
 from common import (
+    SLOT_STATES,
+    activity_matrix,
     ARM_CELL,
     BANDIT_CELLS,
     PIPELINE_VIEW,
@@ -177,6 +179,22 @@ def x4_numbers() -> dict:
     return out
 
 
+# ---------- activity matrix (Fig H) ----------
+
+
+def activity_numbers(cell: str = "B-TS", scenario: str = "S2", seeds=(1, 2, 3, 4, 5)) -> dict:
+    """Share of the 200 planned slots per learner in each state; mean over seeds with 95% t-intervals."""
+    per_seed = {k: [] for k, _, _ in SLOT_STATES}
+    for s in seeds:
+        m = activity_matrix(cell, scenario, s)
+        for i, (k, _, _) in enumerate(SLOT_STATES):
+            per_seed[k].append(float((m == i).mean()))
+    out = {k: {"share": mean_ci(v)} for k, v in per_seed.items()}
+    out["condition"] = f"{cell} {scenario}"
+    out["n_seeds"] = len(seeds)
+    return out
+
+
 # ---------- RQ2: field replica ----------
 
 
@@ -281,6 +299,8 @@ def compute() -> tuple[dict, dict]:
         num["explain_counts"] = json.loads((RAW / "explain" / "audit_counts.json").read_text())
     if exists("field/runs.csv.gz"):
         num["field"] = field_numbers()
+    if exists("pipeline/tasks_B-TS_S2_s1.csv.gz"):
+        num["activity"] = activity_numbers()
     cal = ROOT / "results" / "summary" / "calibration.json"  # calibration is never a quick run
     if cal.exists():
         c = load_json(cal)

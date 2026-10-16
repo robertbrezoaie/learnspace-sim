@@ -107,6 +107,16 @@ Descriptive (no prediction): C2 − C1
 - CHURN: 0.001 [-0.001, 0.002] (`pipeline.diff.C2_minus_C1.CHURN`)
 - FAS: -0.001 [-0.001, -0.001] (`pipeline.diff.C2_minus_C1.FAS`)
 
+Activity matrix (Fig H; condition C4, seeds 1–5): share of the 200 planned task slots per learner that ended as
+
+- correct: 0.541 [0.528, 0.554] (`activity.correct.share`)
+- recovered: 0.170 [0.169, 0.171] (`activity.recovered.share`)
+- failed: 0.107 [0.100, 0.114] (`activity.failed.share`)
+- dont_know: 0.076 [0.075, 0.076] (`activity.dont_know.share`)
+- quit: 0.012 [0.009, 0.015] (`activity.quit.share`)
+- absent: 0.083 [0.079, 0.086] (`activity.absent.share`)
+- churned: 0.011 [0.008, 0.014] (`activity.churned.share`)
+
 Bandit inside the loop: RTS C4 − C3 0.017 [0.016, 0.018] (`pipeline.diff.C4_minus_C3.RTS`); C5 − C4 0.044 [0.043, 0.044] (`pipeline.diff.C5_minus_C4.RTS`).
 
 ## Robustness (EXP-S)
@@ -138,6 +148,8 @@ Bandit inside the loop: RTS C4 − C3 0.017 [0.016, 0.018] (`pipeline.diff.C4_mi
 **Fig F** (`figures/fig_f_pipeline.pdf`). Pipeline view in scenario S2 (synthetic learners; N = 500, 20 weekly sessions, 30 seeds). C1: static difficulty, plain feedback; C2: DDA-E, plain feedback; C3: DDA-E, random feedback type; C4: DDA-E, deployed Thompson-sampling bandit; C5: DDA-E, oracle feedback (upper bound). TIB: share of first attempts with true success probability in [0.55, 0.85]; FAS: observed first-attempt success; RTS: observed retry success; CHURN: share of learners who churned. Points: mean over seeds; whiskers: 95% t-intervals.
 
 **Fig G** (`figures/fig_g_tornado.pdf`). One-at-a-time sensitivity analysis (synthetic learners; N = 300, 10 seeds per setting). Each row is one learner parameter set to the low (left marker) and high (right marker) end of its range, all others at default. (a) seed-paired difference in retry success RTS between C4 (bandit) and C3 (random feedback), scenario S2; (b) seed-paired difference in time in band TIB between C2 (DDA-E) and C1 (static). The vertical line is the default setting.
+
+**Fig H** (`figures/fig_h_activity_matrix.pdf`). Activity matrix of synthetic learners (EXP-P condition C4: DDA-E with the deployed Thompson-sampling bandit, scenario S2). Each learner has 20 weekly sessions x 10 planned tasks = 200 slots. (a) 100 learners from seed 1, chosen by a fixed rule (all 500 sorted by tasks completed, every 5th kept), most active at the top; each cell is one planned task slot. (b) Share of slot states per week over all 2,500 logged learners (seeds 1-5). After a wrong first answer (or "don't know") the bandit chooses the feedback type and the learner retries once. Three consecutive absences end participation (churn).
 
 ## Tables
 

@@ -170,6 +170,12 @@ def write(num: dict, flat: dict, figs: list[dict], tabs: list[tuple[str, str]]) 
         for m in ["TIB", "FRUS", "BORE", "CHURN", "FAS"]:
             add(f"- {m}: {n.v(f'pipeline.diff.C2_minus_C1.{m}')}")
         add("")
+        if "activity" in num:
+            add("Activity matrix (Fig H; condition C4, seeds 1–5): share of the 200 planned task slots per learner that ended as")
+            add("")
+            for k in ["correct", "recovered", "failed", "dont_know", "quit", "absent", "churned"]:
+                add(f"- {k}: {n.v(f'activity.{k}.share')}")
+            add("")
         add(f"Bandit inside the loop: RTS C4 − C3 {n.v('pipeline.diff.C4_minus_C3.RTS')}; C5 − C4 {n.v('pipeline.diff.C5_minus_C4.RTS')}.")
         add("")
 

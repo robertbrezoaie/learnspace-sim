@@ -47,6 +47,7 @@ npm run all        # runs all experiments, then all analysis scripts
 | `figures/fig_e_field` | Field replica: ID90 and FID90 vs N (RQ2) | `--exp field` | `analysis/fig_e.py` |
 | `figures/fig_f_pipeline` | Pipeline view C1–C5 in S2 (RQ3) | `--exp pipeline` | `analysis/fig_f.py` |
 | `figures/fig_g_tornado` | Sensitivity tornado plots (appendix) | `--exp sensitivity` | `analysis/fig_g.py` |
+| `figures/fig_h_activity_matrix` | Activity matrix: learners x planned task slots, and slot states per week | `--exp pipeline` | `analysis/fig_h.py` |
 | `results/summary/table1_parameters.*` | Parameter table from the configs | configs | `analysis/tables.py` |
 | `results/summary/table2a_pipeline.*`, `table2b_bandit.*` | Main results with 95% CIs | `--exp pipeline` | `analysis/tables.py` |
 | `results/summary/table3_robustness.*` | K1–K4 across sensitivity settings | `--exp sensitivity` | `analysis/tables.py` |
