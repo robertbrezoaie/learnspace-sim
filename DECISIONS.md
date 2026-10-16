@@ -61,3 +61,4 @@ Every decision that affects the simulation is recorded here with its date, what 
 - Pre-registration commit SHA: `f0c695469c28404253aa70694249e3043c3e8fec` (16 October 2026). From this commit on, `src/core/**` and the primary configs are frozen.
 - Changes after the freeze (none to `src/core/**` or the primary configs):
   - 2026-10-16: `src/sim/jobs.ts` (audit job, not the frozen core) computed the X5 seed inside a filter, which was quadratic in the number of task rows and stalled the full EXP-X run. Fixed; outputs unchanged. EXP-X and EXP-S were run after the fix; EXP-P and EXP-F were not affected.
+  - 2026-10-16: the dirty-tree check (`src/sim/meta.ts`) now ignores generated outputs under `results/` and `figures/`, because EXP-X writes `results/summary/example_cases.json` before EXP-S starts. Source, configs and documents still count.

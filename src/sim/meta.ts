@@ -20,7 +20,11 @@ export interface GitState {
 export function gitState(): GitState {
   try {
     const sha = execSync('git rev-parse HEAD', { cwd: REPO_ROOT, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
-    const status = execSync('git status --porcelain', { cwd: REPO_ROOT, stdio: ['ignore', 'pipe', 'ignore'] }).toString();
+    // generated outputs (results/, figures/) do not make the tree dirty; source, configs and docs do
+    const status = execSync('git status --porcelain -- . ":(exclude)results" ":(exclude)figures"', {
+      cwd: REPO_ROOT,
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).toString();
     return { sha, dirty: status.trim().length > 0 };
   } catch {
     return { sha: null, dirty: true };
