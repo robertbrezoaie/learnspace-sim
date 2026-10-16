@@ -58,5 +58,5 @@ Every decision that affects the simulation is recorded here with its date, what 
 
 ## Pre-registration and freeze
 
-- Pre-registration commit SHA: *(filled at M2)*
-- Changes after the freeze: *(each with date, reason and the experiments that were re-run)*
+- Pre-registration commit SHA: `f0c695469c28404253aa70694249e3043c3e8fec` (16 October 2026). From this commit on, `src/core/**` and the primary configs are frozen.
+- Changes after the freeze: none.
