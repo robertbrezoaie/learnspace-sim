@@ -1,0 +1,31 @@
+{
+  "_doc": "EXP-CAL (SIMULATION_SPEC.md section 9.1). Runs before the freeze. Writes results/summary/calibration.json.",
+  "field_tiers": {
+    "targets": { "warmup": 0.90, "easy": 0.65, "hard": 0.30 },
+    "_targets": "Mean first-attempt success (including 'don't know') at E = E*, over the default population. Design targets of the Report 5 question bank.",
+    "learners": 100000,
+    "seed": 1,
+    "bisection_tolerance": 0.001
+  },
+  "static_run": {
+    "difficulty": "STATIC",
+    "policy": "PLAIN",
+    "scenario": "S2",
+    "N": 2000,
+    "seed": 1
+  },
+  "plausibility_targets": {
+    "median_learner_success_per_session": [0.55, 0.80],
+    "churn_by_last_session": [0.02, 0.35],
+    "dont_know_rate": [0.03, 0.15],
+    "field_replica_wrong_first_answers_share": 0.45,
+    "field_replica_mistakes_per_learner": 5.4
+  },
+  "adjustment_rules": {
+    "_doc": "If a target is missed, change only the directly responsible parameter, re-run, and log the change in DECISIONS.md. Stop after max_iterations and report to the researcher.",
+    "success_drift": ["l_p", "l_r"],
+    "churn": ["q_max", "a0"],
+    "dont_know_rate": ["dk_scale"],
+    "max_iterations": 3
+  }
+}

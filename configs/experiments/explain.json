@@ -1,0 +1,38 @@
+{
+  "_doc": "EXP-X, explanation audit by replay of EXP-P task logs (SIMULATION_SPEC.md section 9.4). Replay is valid because reward decisions do not affect learners and the explanation rule affects nothing else.",
+  "source_cells": ["C2", "B-TS"],
+  "scenario": "S2",
+  "seeds": [1, 2, 3, 4, 5],
+  "max_decisions_per_cell_and_output": 50000,
+  "sampling_stream": "xaudit",
+  "X1_rule_comparison": {
+    "rules": ["v1", "v2", "random"],
+    "delta_tie": 0.2,
+    "metrics": ["NC", "SI", "DN", "SU", "AGR"]
+  },
+  "X2_stability": {
+    "noise_sd": [0.05, 0.10, 0.20],
+    "delta_tie": [0.0, 0.1, 0.2, 0.3],
+    "draws_per_decision": 20,
+    "metrics": ["ST_exact", "ST_jaccard", "TF"],
+    "_note": "Main analysis on reward decisions. For difficulty decisions (single input e), report only the share of noise draws that change the decision category; perturb both e_{t-1} and e_{t-2}."
+  },
+  "X3_weight_sweep": {
+    "output": "reward",
+    "grid_step": 0.1,
+    "delta_tie": [0.0, 0.2],
+    "noise_sd": 0.10,
+    "metrics": ["TF", "XR", "ST_exact", "DN"]
+  },
+  "X4_exposure": { "rule": "v2", "per": "learner-session", "outputs": ["reward", "difficulty"] },
+  "X5_example_cases": {
+    "cell": "C2",
+    "seed": 1,
+    "cases": [
+      "first single-factor difficulty decrease",
+      "first two-factor reward explanation",
+      "first difficulty decision where v1 names a non-contributing factor"
+    ],
+    "output": "results/summary/example_cases.json"
+  }
+}

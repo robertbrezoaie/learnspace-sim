@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "learnspace-sim: simulation study of the LearnSpace adaptive gamification framework"
+type: software
+authors:
+  - family-names: "Brezoaie"
+    given-names: "Robert-Emanuel"
+    affiliation: "National University of Science and Technology POLITEHNICA Bucharest"
+    email: "robert.brezoaie@upb.ro"
+# Add the manuscript's co-authors here if they should be credited for the software.
+version: "1.0.0"
+date-released: "2026-10-22"
+license: MIT
+repository-code: "https://github.com/<user>/learnspace-sim"

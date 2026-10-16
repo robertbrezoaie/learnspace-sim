@@ -1,0 +1,16 @@
+{
+  "_doc": "EXP-F, replica of the Report 5 study page (SIMULATION_SPEC.md section 9.3). One session per learner, no gamification, no DDA, quitting allowed. Tier difficulties come from results/summary/calibration.json (EXP-CAL).",
+  "N_values": [30, 50, 100],
+  "scenarios": ["S0", "S1", "S2", "S3"],
+  "runs": 500,
+  "seeds": { "from": 1, "to": 500 },
+  "tier_order": ["warmup", "warmup", "hard", "easy", "hard", "easy", "hard", "easy", "hard", "easy", "hard", "easy"],
+  "policy": "TS_DEPLOYED",
+  "ts_mode": "probs",
+  "draws": 5000,
+  "draws_fast": 1000,
+  "_draws_fast": "--fast only; never used for the paper.",
+  "pbest_draws": 20000,
+  "identification_threshold": 0.9,
+  "quick": { "runs": 20, "output_dir": "results/quick/field" }
+}

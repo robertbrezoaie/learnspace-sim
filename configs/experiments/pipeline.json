@@ -1,0 +1,35 @@
+{
+  "_doc": "EXP-P, the main experiment (SIMULATION_SPEC.md section 9.2). C2 runs in all scenarios: its outcomes are identical across scenarios (plain has no gain), but the regret reference differs.",
+  "N": 500,
+  "S": 20,
+  "T": 10,
+  "seeds": { "from": 1, "to": 30 },
+  "task_log_seeds": [1, 2, 3, 4, 5],
+  "ts_mode": "sample",
+  "bandit_snapshot_every": 100,
+  "bandit_snapshot_draws": 5000,
+  "curve_grid_every": 100,
+  "cells": [
+    { "id": "C1", "difficulty": "STATIC", "policy": "PLAIN", "scenarios": ["S2"] },
+    { "id": "C2", "difficulty": "DDA-E", "policy": "PLAIN", "scenarios": ["S0", "S1", "S2", "S3"] },
+    { "id": "B-RANDOM", "difficulty": "DDA-E", "policy": "RANDOM", "scenarios": ["S0", "S1", "S2", "S3"] },
+    { "id": "B-HINT", "difficulty": "DDA-E", "policy": "FIXED_HINT", "scenarios": ["S0", "S1", "S2", "S3"] },
+    { "id": "B-EXAMPLE", "difficulty": "DDA-E", "policy": "FIXED_EXAMPLE", "scenarios": ["S0", "S1", "S2", "S3"] },
+    { "id": "B-TS", "difficulty": "DDA-E", "policy": "TS_DEPLOYED", "scenarios": ["S0", "S1", "S2", "S3"] },
+    { "id": "B-TSPURE", "difficulty": "DDA-E", "policy": "TS_PURE", "scenarios": ["S0", "S1", "S2", "S3"] },
+    { "id": "B-TSCTX", "difficulty": "DDA-E", "policy": "TS_CTX", "scenarios": ["S0", "S1", "S2", "S3"] },
+    { "id": "B-ORACLE", "difficulty": "DDA-E", "policy": "ORACLE", "scenarios": ["S0", "S1", "S2", "S3"] }
+  ],
+  "views": {
+    "pipeline_RQ3": {
+      "scenario": "S2",
+      "conditions": { "C1": "C1", "C2": "C2", "C3": "B-RANDOM", "C4": "B-TS", "C5": "B-ORACLE" }
+    },
+    "bandit_RQ2": {
+      "scenarios": ["S0", "S1", "S2", "S3"],
+      "cells": ["C2", "B-RANDOM", "B-HINT", "B-EXAMPLE", "B-TS", "B-TSPURE", "B-TSCTX", "B-ORACLE"],
+      "_note": "C2 plays the role of FIXED_PLAIN."
+    }
+  },
+  "quick": { "N": 100, "seeds": { "from": 1, "to": 3 }, "output_dir": "results/quick/pipeline" }
+}

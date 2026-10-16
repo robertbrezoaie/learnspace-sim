@@ -1,0 +1,60 @@
+{
+  "_doc": "Learner-model parameters (SIMULATION_SPEC.md sections 7 and 7.7). Every entry is {value, range, source}. 'range' is used by EXP-S (one-at-a-time low/high); null means not swept. Keys starting with '_' are documentation and are ignored by code. Symbols in the spec: guess = g, slip = s, l_p = ell_p, l_r = ell_r.",
+  "structure": {
+    "N": { "value": 500, "range": null, "source": "design: learners per run (EXP-P)" },
+    "S": { "value": 20, "range": null, "source": "design: weekly sessions, one school semester" },
+    "T": { "value": 10, "range": null, "source": "design: planned tasks per session" }
+  },
+  "population": {
+    "mu_theta": { "value": 0.0, "range": null, "source": "Rasch convention (Embretson & Reise, 2000)" },
+    "sigma_theta": { "value": 1.0, "range": [0.7, 1.3], "source": "Rasch convention (Embretson & Reise, 2000)" },
+    "rt_baseline_seconds": { "value": 40, "range": null, "source": "stylised; only relative response times matter for the algorithm" },
+    "rt_baseline_sd_log": { "value": 0.3, "range": null, "source": "stylised" },
+    "E_star_mean": { "value": 0.667, "range": [0.55, 0.75], "source": "stylised; E* ~ Beta(c*mean, c*(1-mean))" },
+    "E_star_concentration": { "value": 9, "range": null, "source": "stylised" }
+  },
+  "response": {
+    "s_D": { "value": 1.0, "range": [0.75, 1.25], "source": "design choice: logit per difficulty level, so D in [1,5] spans +/-2 logits; delta = s_D*(D - 3)" },
+    "guess": { "value": 0.05, "range": [0.02, 0.15], "source": "BKT guess bound (Baker et al., 2008); low for open answers" },
+    "slip": { "value": 0.05, "range": [0.02, 0.10], "source": "BKT slip bound (Baker et al., 2008; Corbett & Anderson, 1994)" },
+    "sigma_rt": { "value": 0.4, "range": [0.3, 0.6], "source": "lognormal response-time model (van der Linden, 2006); value stylised" },
+    "lambda_d": { "value": 0.25, "range": [0.10, 0.40], "source": "lognormal response-time model (van der Linden, 2006): harder relative to ability -> slower; value stylised" },
+    "dk0": { "value": 0.02, "range": null, "source": "stylised; scaled by dk_scale" },
+    "dk1": { "value": 0.10, "range": null, "source": "stylised; scaled by dk_scale" },
+    "dk2": { "value": 0.10, "range": null, "source": "stylised; scaled by dk_scale" },
+    "dk_scale": { "value": 1.0, "range": [0.5, 1.5], "source": "stylised; multiplies dk0, dk1 and dk2" },
+    "dk_max": { "value": 0.6, "range": null, "source": "stylised; upper clip of the 'don't know' probability" },
+    "dk_rt_factor": { "value": 0.5, "range": null, "source": "stylised; response time of a 'don't know' answer relative to a normal attempt" }
+  },
+  "learning": {
+    "l_p": { "value": 0.006, "range": [0.003, 0.012], "source": "stylised; ability gain per attempted task; checked in EXP-CAL" },
+    "l_r": { "value": 0.015, "range": [0.005, 0.030], "source": "stylised; extra gain after a correct retry; checked in EXP-CAL" }
+  },
+  "engagement": {
+    "rho": { "value": 0.05, "range": [0.02, 0.10], "source": "stylised; per-task reversion to trait engagement" },
+    "rho_s": { "value": 0.3, "range": [0.1, 0.5], "source": "stylised; per-week reversion to trait engagement" },
+    "phi_flow": { "value": 0.02, "range": [0.01, 0.04], "source": "direction from affect dynamics (D'Mello & Graesser, 2012; Baker et al., 2010); magnitude stylised" },
+    "phi_bore": { "value": 0.015, "range": [0.005, 0.03], "source": "direction from affect dynamics (Baker et al., 2010); magnitude stylised" },
+    "phi_frus": { "value": 0.03, "range": [0.015, 0.06], "source": "direction from affect dynamics (D'Mello & Graesser, 2012); magnitude stylised" },
+    "band_lo": { "value": 0.55, "range": null, "source": "target challenge band; also used by the TIB metric (never shifted for the metric)" },
+    "band_hi": { "value": 0.85, "range": null, "source": "upper bound near the 85% rule (Wilson et al., 2019)" },
+    "band_shift": { "value": 0.0, "range": [-0.05, 0.05], "source": "sensitivity only: shifts the learner's engagement band, not the TIB metric" },
+    "p_bore": { "value": 0.90, "range": null, "source": "stylised; 'too easy' threshold" },
+    "E_q": { "value": 0.35, "range": null, "source": "stylised; engagement level below which quitting becomes possible" },
+    "q_max": { "value": 0.25, "range": [0.10, 0.40], "source": "stylised; maximum quit probability per task" }
+  },
+  "attendance": {
+    "a0": { "value": 0.6, "range": null, "source": "stylised; attend probability = clip(a0 + a1*E, 0, attend_max)" },
+    "a1": { "value": 0.5, "range": null, "source": "stylised" },
+    "attend_max": { "value": 0.98, "range": null, "source": "stylised" },
+    "absences_to_churn": { "value": 3, "range": null, "source": "stylised; consecutive absences after which the learner never returns" }
+  },
+  "grader": {
+    "grader_error": { "value": 0.0, "range": [0.0, 0.10], "source": "LLM grader disagreement; Report 5 H1 targets kappa >= 0.60" }
+  },
+  "feedback": {
+    "gain_scale": { "value": 1.0, "range": [0.5, 1.5], "source": "multiplies the scenario gains (configs/scenarios.json); anchor: feedback effect d ~ 0.48 (Wisniewski et al., 2020) ~ 0.87 logits (Chinn, 2000)" },
+    "gain_clip_low": { "value": -0.5, "range": null, "source": "stylised" },
+    "gain_clip_high": { "value": 1.5, "range": null, "source": "stylised" }
+  }
+}

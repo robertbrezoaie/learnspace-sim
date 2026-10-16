@@ -1,0 +1,26 @@
+{
+  "_doc": "Feedback scenarios (SIMULATION_SPEC.md section 7.4). Gain of an arm, in logits: gain = intercept + slope * x, where x = theta - delta (relative expertise). Each gain is clipped to [gain_clip_low, gain_clip_high] and multiplied by gain_scale (configs/learner.default.json). 'plain' has gain 0 in every scenario. Expertise reversal: Kalyuga et al. (2003).",
+  "primary": "S2",
+  "scenarios": {
+    "S0": {
+      "label": "null: no real difference between arms",
+      "hint": { "intercept": 0.0, "slope": 0.0 },
+      "example": { "intercept": 0.0, "slope": 0.0 }
+    },
+    "S1": {
+      "label": "homogeneous: one clearly better arm",
+      "hint": { "intercept": 0.4, "slope": 0.0 },
+      "example": { "intercept": 0.8, "slope": 0.0 }
+    },
+    "S2": {
+      "label": "expertise reversal: best arm depends on learner and task",
+      "hint": { "intercept": 0.5, "slope": 0.2 },
+      "example": { "intercept": 0.8, "slope": -0.4 }
+    },
+    "S3": {
+      "label": "small effect: hard to detect",
+      "hint": { "intercept": 0.15, "slope": 0.0 },
+      "example": { "intercept": 0.25, "slope": 0.0 }
+    }
+  }
+}

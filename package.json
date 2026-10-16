@@ -1,0 +1,22 @@
+{
+  "name": "learnspace-sim",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Simulation study of the LearnSpace adaptive gamification framework (synthetic learners).",
+  "license": "MIT",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "tsc --noEmit && vitest run",
+    "sim": "tsx src/cli.ts",
+    "sim:all": "tsx src/cli.ts --exp all",
+    "all": "npm run sim:all && python3 analysis/make_all.py"
+  },
+  "devDependencies": {
+    "@types/node": "20.17.6",
+    "tsx": "4.19.2",
+    "typescript": "5.6.3",
+    "vitest": "2.1.8"
+  }
+}

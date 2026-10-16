@@ -1,0 +1,9 @@
+node_modules/
+dist/
+results/raw/
+results/quick/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.env

@@ -1,0 +1,21 @@
+{
+  "_doc": "EXP-S, one-at-a-time sensitivity analysis (SIMULATION_SPEC.md section 9.5). Every learner parameter with a non-null range in configs/learner.default.json is set to its low and high value, others at default. K1-K4 (PREREGISTRATION.md) are evaluated in every setting.",
+  "design": "one-at-a-time",
+  "parameters": "all learner parameters with a non-null range",
+  "N": 300,
+  "seeds": { "from": 1, "to": 10 },
+  "runs": [
+    { "scenario": "S2", "cells": ["C1", "C2", "B-RANDOM", "B-TS"] },
+    { "scenario": "S1", "cells": ["B-RANDOM", "B-TS"] }
+  ],
+  "explain": {
+    "cell": "C2",
+    "scenario": "S2",
+    "seeds": [1, 2, 3],
+    "noise_sd": 0.10,
+    "delta_tie": [0.0, 0.2]
+  },
+  "holds_rule": "seed-paired mean difference has the predicted sign and its 95% t-interval excludes 0",
+  "priority_if_short": ["gain_scale", "l_r", "phi_frus", "sigma_rt", "grader_error", "s_D"],
+  "optional_lhs": { "samples": 50, "milestone": "M5" }
+}
