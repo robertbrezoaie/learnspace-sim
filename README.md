@@ -23,7 +23,7 @@ The LearnSpace prototype (Expo/React Native and Supabase) is not part of this re
 
 ## Reproduce
 
-Requirements: Node 20 or newer, and Python 3.11 or newer.
+Requirements: Node 20 or newer, and Python 3.9 or newer.
 
 ```
 npm install
