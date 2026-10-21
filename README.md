@@ -2,6 +2,8 @@
 
 Simulation study of the LearnSpace adaptive gamification framework. It accompanies the manuscript *"An Interpretable Hybrid Adaptive Gamification Framework with Bandit-Based Feedback Selection and Decision-Specific Learner-Facing Explanations: Design and Simulation Study"* (MDPI *Algorithms*, under revision).
 
+Repository: https://github.com/robertbrezoaie/learnspace-sim
+
 > **All data produced by this repository are synthetic.** The simulation validates algorithmic behaviour, not learning outcomes.
 
 ## What is in here
