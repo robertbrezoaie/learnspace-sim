@@ -9,6 +9,6 @@ authors:
     email: "robert.brezoaie@upb.ro"
 # Add the manuscript's co-authors here if they should be credited for the software.
 version: "1.0.0"
-date-released: "2026-10-22"
+date-released: "2026-10-21"
 license: MIT
 repository-code: "https://github.com/robertbrezoaie/learnspace-sim"

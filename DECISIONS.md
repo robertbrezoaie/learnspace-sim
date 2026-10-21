@@ -58,7 +58,27 @@ Every decision that affects the simulation is recorded here with its date, what 
 
 ## Pre-registration and freeze
 
-- Pre-registration commit SHA: `f0c695469c28404253aa70694249e3043c3e8fec` (16 October 2026). From this commit on, `src/core/**` and the primary configs are frozen.
+- Pre-registration commit SHA: `b37cfe62806c2e7def0f17a55eccf57c931bb6a1` (16 October 2026, 12:15:56 +03:00). From this commit on, `src/core/**` and the primary configs are frozen. Before the history rewrite below, this commit had SHA `f0c695469c28404253aa70694249e3043c3e8fec`.
 - Changes after the freeze (none to `src/core/**` or the primary configs):
   - 2026-10-16: `src/sim/jobs.ts` (audit job, not the frozen core) computed the X5 seed inside a filter, which was quadratic in the number of task rows and stalled the full EXP-X run. Fixed; outputs unchanged. EXP-X and EXP-S were run after the fix; EXP-P and EXP-F were not affected.
   - 2026-10-16: the dirty-tree check (`src/sim/meta.ts`) now ignores generated outputs under `results/` and `figures/`, because EXP-X writes `results/summary/example_cases.json` before EXP-S starts. Source, configs and documents still count.
+
+## History rewrite (2026-10-21)
+
+Before the first public release, the git history was rewritten with `git filter-repo` to remove material from the journal's confidential peer review: a file that paraphrased the round-1 review reports, and reviewer quotes and attributions in `SIMULATION_SPEC.md` §1.2, `CLAUDE.md` and three rows of this file. The rewrite also removed internal deadlines and a local file path, and replaced the commit e-mail address with the GitHub no-reply address.
+
+The rewrite kept every commit's date, order and message. `configs/`, `src/`, `analysis/`, `tests/`, `results/summary/`, `figures/`, `PREREGISTRATION.md` and `package.json` are byte-identical before and after (same git tree hashes), so the SHA-256 config hashes in PREREGISTRATION.md still verify. Commit SHAs changed. The run metadata (`run_meta.json`, and the `meta` block of `results/summary/paper_numbers.json`) records the old SHAs; this map translates them:
+
+| Old SHA | New SHA | Commit |
+|---|---|---|
+| `7a1de88` | `7458603` | M0: repository, seeded RNG, algorithm core and tests 1-8 |
+| `6ed4b20` | `e2f5cd2` | M1/M3: learner model, engine, policies, experiments, calibration, analysis |
+| `f0c6954` | `b37cfe6` | M2: pre-registration (final), freeze of src/core and primary configs |
+| `8127443` | `3066ec0` | Record the pre-registration commit SHA (EXP-P and EXP-F were run here) |
+| `1373646` | `55c81c9` | Fix quadratic X5 seed selection in the audit job (EXP-X was run here) |
+| `7e73160` | `7a1cafb` | Dirty-tree check ignores generated outputs (EXP-S and the EXP-CAL re-run were run here) |
+| `368344a` | `f4253ff` | M3/M4: full results, figures, tables, paper_numbers.json, RESULTS.md |
+| `912ab67` | `378023a` | Add Fig H: activity matrix of synthetic learners |
+| `eb79c9c` | `1c9e904` | Prepare public release |
+| `c21332a` | `140a15f` | Add repository URL |
+
